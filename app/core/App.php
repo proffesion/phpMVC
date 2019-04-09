@@ -11,14 +11,14 @@ class App
         // the url from parseUrl()
         $url = $this->parseUrl();
 
-        if (file_exists('../app/controllers/' . $url[0] . '.php'))
+        if (file_exists('app/controllers/' . $url[0] . '.php'))
         {
             $this->controller = $url[0];
             unset($url[0]);
         }
 
         // require the controller
-        require_once '../app/controllers/' .$this->controller . '.php';
+        require_once 'app/controllers/' .$this->controller . '.php';
 
         /*
         *create an object 
@@ -40,17 +40,18 @@ class App
 
         // this function will call the method
         // or a controller 
-        call_user_func_array([$this->controller, $this->method], $this->params);
+        @call_user_func_array([$this->controller, $this->method], $this->params);
 
     }
 
 
 
-    public function parseUrl()
+    public static function parseUrl()
     {
         if (isset($_GET['url'])) 
         {
-            return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));    
+            return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+            // echo $url;    
         }
     }
 }

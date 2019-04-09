@@ -5,8 +5,11 @@ class Controller
 
     public function model($model)
     {
-        /// !- check if the file exist
-        require_once '../app/models/' . $model . '.php';
+        if (file_exists('app/models/' . $model . '.php')) {
+            require_once 'app/models/' . $model . '.php';
+        } else {
+            die('the model doesnt found');
+        }
 
         // create an object for that
         return new $model();
@@ -14,6 +17,20 @@ class Controller
 
     public function view($view, $data = [])
     {
-        require_once '../app/views/' . $view . '.php';
+        // check if it found in the html document
+        if(file_exists('app/views/' . $view . '.php')) {
+            require_once 'app/views/' . $view . '.php';
+        } else {
+
+            // begin showing error
+            // die('file doesnt found');
+
+            header('HTTP/1.0 404 Not Found');
+            include_once 'app/views/errors/404.php';
+            exit();
+        
+        }
     }
 }
+
+// C:\xampp\htdocs\mvcfull\app/views/errors/404.php
