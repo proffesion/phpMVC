@@ -1,5 +1,5 @@
 <?php
-class User
+class User_m
 {
     private $_db,
             $_data,
@@ -10,12 +10,14 @@ class User
 	private static $_conn = null;
 
 
-    public function __construct($user = null) {
+    public function __construct() {
         $this->_db = DB::getInstance(); // DB
 
         $this->_sessionName = Config::get('session/session_name'); // assign the session name
         $this->_cookieName  = Config::get('remember/cookie_name'); // assign the session name
+    }
 
+    public function user($user = null) {
         if (!$user) {
             if (Session::exists($this->_sessionName)) {
                 $user = Session::get($this->_sessionName);
@@ -28,7 +30,7 @@ class User
             }
         } else {
             $this->find($user);
-        }
+        }        
     }
 
 

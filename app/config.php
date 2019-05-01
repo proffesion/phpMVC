@@ -15,6 +15,10 @@ $GLOBALS['config'] = array(
 	'session' => array(
 		'session_name' => 'user',
 		'token_name'   => 'token'
+	),
+	'hash' => array(
+		'algo' => PASSWORD_BCRYPT,
+		'cost' => 10	
 	)
 );
 

@@ -1,25 +1,48 @@
 <?php
 
+/**
+ * The default home controller, called when on controller/method has been passed
+ * to the application
+ */
+
 class Home extends Controller
 {
+    /**
+     * definition of models variable
+     * that will be used
+     */
+    public $_home;
 
-public function index($name = '')
-{
-    $user = $this->model('User');
-    $user->name = $name;
-    //$user->name;
-    
-    $this->view('home/index', ['name' => $user->name]);
-    // $this->view('errors/404');
-    // $this->disp();
+    public function __construct() {
+        /**
+         * assign the models variable that will be used
+         */
+        $this->_home = $this->model('Home_m');
+    }
 
-    // $this->redirect();
-}
+    public function index($name = '', $mood = 'happy')
+    {
+        $user = $this->model('User_m');
+        $user->name = $name;
+        //$user->name;
+        
+        $this->view('home/index', [
+            'name' => $user->name,
+            'mood' => $mood
+        ]);
 
-public function redirect()
-{
-    Redirect::to('contact');
-}
+        $this->_home->display();
+        
+    }
+
+
+
+
+// $this->view('errors/404');
+// public function redirect()
+// {
+//     Redirect::to('contact');
+// }
  
 
 }

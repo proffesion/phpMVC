@@ -1,3 +1,4 @@
+
 <h1> Register </h1>
 this is the registration
 
@@ -5,3 +6,4 @@ this is the registration
 	<input type="text" name="name">
 	<input type="submit" value="Send">
 </form>
+

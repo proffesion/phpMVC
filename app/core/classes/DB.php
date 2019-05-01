@@ -7,6 +7,7 @@ class DB
 			$_query,
 			$_error = false,
 			$_results,
+			$_select = '*', // this will be used to select elements in tha data
 			$_count = 0;
 
 
@@ -75,6 +76,7 @@ class DB
 			}
 		}
 
+		
 		return $this;
 	}
 
@@ -123,7 +125,32 @@ class DB
 
 
 
+	public function select($fields = array()) {
 
+		// Form a query
+		if (count($fields)) { // check if there is some data to insert
+			$keys = array_keys($fields); // retrieve the keys
+			$values = '';
+			$x = 1;
+
+			foreach ($fields as $field) { // form backbone of data prepare
+				
+				// set the value to the select array
+				$values .= $field;
+				if ($x < count($fields)) { // prevent a commer "," at the end
+					$values .= ', ';
+				}
+
+
+				$x++;
+			}
+
+			// set them to the select array
+			$this->_select = $values;
+			
+		}
+
+	}
 
 
 
@@ -136,10 +163,34 @@ class DB
 	*/
 
 	public function get($table, $where) {
-		return $this->action('SELECT *', $table, $where);
+		return $this->action('SELECT '. $this->_select , $table, $where);
 	}
 
 
+	// public function allData() {
+	// 	$sql = "SELECT * FROM `users`";
+	// 	$params = [];
+	// 	return $this->query($sql, $params);
+	// }
+
+	public function test() {
+		echo 'hahahah this was a test from DB class <br>';
+	}
+
+
+	public function def_Query($sql, $values = array()) 
+	{
+
+			// if (in_array($operator, $operators)) { // check if the perator in inside the operator array
+				// $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
+
+				if (!$this->query($sql, $values)->error()) {
+					return $this;
+				}
+			// }
+	
+		return false;
+	}
 
 
 	/*

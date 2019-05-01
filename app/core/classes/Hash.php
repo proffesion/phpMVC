@@ -13,5 +13,17 @@ class Hash
         return self::make(uniqid());
     }
 
+    public static function password($password) {
+        return password_hash(
+            $password, 
+            Config::get('hash/algo'),
+            ['cost' => Config::get('hash/cost')]
+        );
+    }
+
+    public static function password_Check($password, $hash) {
+        return password_verify($password, $hash);
+    }
+
     
 }

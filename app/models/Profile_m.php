@@ -1,13 +1,13 @@
 <?php
 
-class Register 
+class Profile_m
 {
     public $name;
     public $message;
 
     
     public function display() {
-        $this->message = "this is to make sure that everything works well";
+        $this->message = "<hr>this is the PROFILE model<hr>";
         return $this->message;
     }
 }
